@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: site-oracle
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: site-oracle
+          servicePort: 8000
+  tls:
+  - hosts:
+    - site-oracle.co.uk
+    secretName: storage-shed-tls-cert
